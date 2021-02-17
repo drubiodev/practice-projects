@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using URLShortener.Library;
+using URLShortener.Models;
 using static URLShortener.Library.UrlValidator;
 
 namespace URLShortener.Controllers
@@ -20,10 +22,13 @@ namespace URLShortener.Controllers
         }
 
         [HttpPost]
-        [CheckUrl]
-        public ActionResult Get()
+        public ActionResult UrlShortener([FromBody] UrlShortenerRequest request)
         {
-            return Ok();
+            if (!UrlValidator.IsValid(request.Url))
+            {
+                return BadRequest("Not a valid URL");
+            }
+            return Ok(UrlValidator.GenerateShortUrl());
         }
     }
 }

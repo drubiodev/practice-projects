@@ -1,27 +1,40 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+
 namespace URLShortener.Library
 {
-    public class UrlValidator
+    public sealed class UrlValidator
     {
-        public sealed class CheckUrl : ValidationAttribute
+        public static bool IsValid(string url)
         {
-            protected override ValidationResult IsValid(object url, ValidationContext validationContext)
+            Uri uriResult;
+
+            bool result = Uri.TryCreate(url, UriKind.Absolute, out uriResult)
+                 && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+            if (result)
             {
-                Uri uriResult;
-
-                bool result = Uri.TryCreate(url.ToString(), UriKind.Absolute, out uriResult)
-                     && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
-
-                if (result)
-                {
-                    return ValidationResult.Success;
-                }
-                else
-                {
-                    return new ValidationResult("Please enter a valid Url");
-                }
+                return true;
             }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static string GenerateShortUrl()
+        {
+            string urlsafe = string.Empty;
+            Enumerable.Range(48, 75)
+              .Where(i => i < 58 || i > 64 && i < 91 || i > 96)
+              .OrderBy(o => new Random().Next())
+              .ToList()
+              .ForEach(i => urlsafe += Convert.ToChar(i));
+            string token = urlsafe.Substring(new Random().Next(0, urlsafe.Length), new Random().Next(2, 6));
+
+            return token;
+
         }
     }
 }
