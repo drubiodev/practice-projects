@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using URLShortener.Entities;
 using URLShortener.Library;
 using URLShortener.Models;
 using static URLShortener.Library.UrlValidator;
@@ -28,7 +29,8 @@ namespace URLShortener.Controllers
             {
                 return BadRequest("Not a valid URL");
             }
-            return Ok(UrlValidator.GenerateShortUrl());
+
+            return Ok(new ShortUrlDetail { OriginalUrl = request.Url, ShortUrl = $"https://localhost:5001/api/ShortUrl/{GenerateShortUrl()}" });
         }
     }
 }
