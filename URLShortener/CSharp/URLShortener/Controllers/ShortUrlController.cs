@@ -16,6 +16,7 @@ namespace URLShortener.Controllers
     public class ShortUrlController : ControllerBase
     {
         private readonly ILogger<ShortUrlController> _logger;
+        static List<ShortUrlDetail> _DB = new List<ShortUrlDetail>();
 
         public ShortUrlController(ILogger<ShortUrlController> logger)
         {
@@ -29,8 +30,18 @@ namespace URLShortener.Controllers
             {
                 return BadRequest("Not a valid URL");
             }
+            var id = GenerateShortUrl();
+            var shortUrlDetails = new ShortUrlDetail { Id = id, OriginalUrl = request.Url, ShortUrl = $"https://localhost:5001/api/ShortUrl/{id}" };
+            _DB.Add(shortUrlDetails);
 
-            return Ok(new ShortUrlDetail { OriginalUrl = request.Url, ShortUrl = $"https://localhost:5001/api/ShortUrl/{GenerateShortUrl()}" });
+            return Ok(shortUrlDetails);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult GetShortUrl(string id)
+        {
+            var url = _DB.Where(w => w.Id == id).First().OriginalUrl;
+            return Redirect(url);
         }
     }
 }

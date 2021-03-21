@@ -30,6 +30,7 @@ namespace URLShortener.Library
             string guidString = Convert.ToBase64String(g.ToByteArray());
             guidString = guidString.Replace("=", "");
             guidString = guidString.Replace("+", "");
+            guidString = guidString.Replace("/", "");
 
             return guidString;
         }
