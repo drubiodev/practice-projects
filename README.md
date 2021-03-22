@@ -10,3 +10,6 @@
 ### API Project: URL Shortener Microservice
 - [x] C-Sharp
 - [ ] NodeJS
+
+### Web Project: Catdex 
+- [ ] Rust
