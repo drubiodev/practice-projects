@@ -13,3 +13,6 @@
 
 ### Web Project: Catdex 
 - [ ] Rust
+
+### Authentication
+- [ ] NodeJS

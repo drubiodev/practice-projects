@@ -1,17 +1,44 @@
-use actix_files::NamedFile;
-use actix_web::{web, App, HttpServer, Result};
+use actix_files::Files;
+use actix_web::{web, App, HttpResponse, HttpServer};
+use handlebars::Handlebars;
+use serde_json::json;
 
-const ADDRESS: &str = "127.0.0.1:8080";
-
-async fn index() -> Result<NamedFile> {
-    Ok(NamedFile::open("./static/index.html")?)
+async fn index(hb: web::Data<Handlebars<'_>>) -> HttpResponse {
+    let data = json!({
+        "project_name": "Catdex",
+        "cats": [
+            {
+                "name": "British short hair",
+                "image_path":    "/static/image/british-short-hair.jpg"
+            },
+            {
+                "name": "Persian",
+                "image_path": "/static/image/persian.jpg"
+            },
+            {
+                "name": "Ragdoll",
+                "image_path": "/static/image/ragdoll.jpg"
+            }
+        ]
+    });
+    let body = hb.render("index", &data).unwrap();
+    HttpResponse::Ok().body(body)
 }
-
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    let mut handlebars = Handlebars::new();
+    handlebars
+        .register_templates_directory(".html", "./static/")
+        .unwrap();
+    let handlebars_ref = web::Data::new(handlebars);
     println!("Listening on port 8080");
-    HttpServer::new(|| App::new().route("/", web::get().to(index)))
-        .bind(ADDRESS)?
-        .run()
-        .await
+    HttpServer::new(move || {
+        App::new()
+            .app_data(handlebars_ref.clone())
+            .service(Files::new("/static", "static").show_files_listing())
+            .route("/", web::get().to(index))
+    })
+    .bind("127.0.0.1:8080")?
+    .run()
+    .await
 }
