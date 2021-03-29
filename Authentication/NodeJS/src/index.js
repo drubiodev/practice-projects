@@ -15,14 +15,10 @@ app.register(fastifyStatic, {
   root: path.join(__dirname, 'public'),
 });
 
-// app.get('/', async (request, reply) => {
-//   return { hello: 'world' };
-// });
-
 const startApp = async () => {
   try {
-    await app.listen(3000);
-    logInfo('Server Listening at port: 3000');
+    await app.listen(process.env.PORT);
+    logInfo(`Server Listening at port: ${process.env.PORT}`);
   } catch (error) {
     logError(error);
     process.exit(1);
