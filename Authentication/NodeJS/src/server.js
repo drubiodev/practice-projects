@@ -1,4 +1,4 @@
-import { logInfo, logError } from './log/index.js';
+import { logInfo, logError, logSuccess } from './log/index.js';
 import { fastify } from 'fastify';
 import fastifyStatic from 'fastify-static';
 import path from 'path';
@@ -21,9 +21,11 @@ app.post('/api/register', {}, async (request, reply) => {
       request.body.email,
       request.body.password
     );
+
+    logSuccess('Registered');
     return userId;
   } catch (error) {
-    console.error(error);
+    logError(error);
   }
 });
 

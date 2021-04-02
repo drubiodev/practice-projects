@@ -26,6 +26,10 @@ const colors = {
   BgWhite: '\x1b[47m',
 };
 
+export const logSuccess = (message) => {
+  console.log(`${colors.FgGreen}%s${colors.Reset}`, `[AUTH_APP] ${message}`);
+};
+
 export const logInfo = (message) => {
   console.log(`${colors.FgCyan}%s${colors.Reset}`, `[AUTH_APP] ${message}`);
 };
