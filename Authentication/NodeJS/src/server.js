@@ -17,7 +17,11 @@ app.register(fastifyStatic, {
 
 app.post('/api/register', {}, async (request, reply) => {
   try {
-    await registerUser(request.body.email, request.body.password);
+    const userId = await registerUser(
+      request.body.email,
+      request.body.password
+    );
+    return userId;
   } catch (error) {
     console.error(error);
   }
