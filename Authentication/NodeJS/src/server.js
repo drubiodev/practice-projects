@@ -14,6 +14,10 @@ app.register(fastifyStatic, {
   root: path.join(__dirname, 'public'),
 });
 
+app.post('/api/register', {}, (request, reply) => {
+  console.log(request.body);
+});
+
 export const startApp = async () => {
   try {
     await app.listen(process.env.PORT);
