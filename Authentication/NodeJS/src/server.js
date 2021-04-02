@@ -3,6 +3,7 @@ import { fastify } from 'fastify';
 import fastifyStatic from 'fastify-static';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { registerUser } from './accounts/register.js';
 
 // ESM specific to get access to dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -14,8 +15,12 @@ app.register(fastifyStatic, {
   root: path.join(__dirname, 'public'),
 });
 
-app.post('/api/register', {}, (request, reply) => {
-  console.log(request.body);
+app.post('/api/register', {}, async (request, reply) => {
+  try {
+    await registerUser(request.body.email, request.body.password);
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 export const startApp = async () => {
