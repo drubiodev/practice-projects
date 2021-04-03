@@ -1,9 +1,9 @@
 import { logInfo, logError, logSuccess } from './log/index.js';
 import { fastify } from 'fastify';
 import fastifyStatic from 'fastify-static';
+import Routes from './routes/index.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { registerUser } from './accounts/register.js';
 
 // ESM specific to get access to dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -15,36 +15,38 @@ app.register(fastifyStatic, {
   root: path.join(__dirname, 'public'),
 });
 
-app.post('/api/register', {}, async (request, reply) => {
-  try {
-    const userId = await registerUser(
-      request.body.email,
-      request.body.password
-    );
+app.register(Routes);
 
-    logSuccess('Registered');
-  } catch (error) {
-    logError(error);
-  }
-});
+// app.post('/api/register', {}, async (request, reply) => {
+//   try {
+//     const userId = await registerUser(
+//       request.body.email,
+//       request.body.password
+//     );
 
-app.post('/api/authorize', {}, async (request, reply) => {
-  try {
-    const userId = await registerUser(
-      request.body.email,
-      request.body.password
-    );
+//     logSuccess('Registered');
+//   } catch (error) {
+//     logError(error);
+//   }
+// });
 
-    logSuccess('Registered');
-  } catch (error) {
-    logError(error);
-  }
-});
+// app.post('/api/authorize', {}, async (request, reply) => {
+//   try {
+//     const userId = await registerUser(
+//       request.body.email,
+//       request.body.password
+//     );
+
+//     logSuccess('Registered');
+//   } catch (error) {
+//     logError(error);
+//   }
+// });
 
 export const startApp = async () => {
   try {
     await app.listen(process.env.PORT);
-    logInfo(`Server Listening at port: ${process.env.PORT}`);
+    logInfo(`Server Listening at: http://127.0.0.1:${process.env.PORT}`);
   } catch (error) {
     logError(error);
     process.exit(1);

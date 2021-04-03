@@ -24,6 +24,7 @@ async fn index(hb: web::Data<Handlebars<'_>>) -> HttpResponse {
     let body = hb.render("index", &data).unwrap();
     HttpResponse::Ok().body(body)
 }
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let mut handlebars = Handlebars::new();
