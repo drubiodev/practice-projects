@@ -7,6 +7,8 @@ export const authorizeUser = async (email, password) => {
   const userData = await user.findOne({
     'email.address': email,
   });
+
+  if (userData === null) return false;
   // get user password
   const savedPassword = userData.password;
   // compare password with one in db
