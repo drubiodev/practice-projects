@@ -23,7 +23,19 @@ app.post('/api/register', {}, async (request, reply) => {
     );
 
     logSuccess('Registered');
-    return userId;
+  } catch (error) {
+    logError(error);
+  }
+});
+
+app.post('/api/authorize', {}, async (request, reply) => {
+  try {
+    const userId = await registerUser(
+      request.body.email,
+      request.body.password
+    );
+
+    logSuccess('Registered');
   } catch (error) {
     logError(error);
   }
