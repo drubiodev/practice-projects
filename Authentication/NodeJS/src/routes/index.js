@@ -8,10 +8,9 @@ const routes = async (server) => {
         request.body.email,
         request.body.password
       );
-
       logSuccess('Registered');
     } catch (error) {
-      logError(error);
+      logError(`Error Registering User: ${error}`);
     }
   });
 
@@ -21,12 +20,7 @@ const routes = async (server) => {
         request.body.email,
         request.body.password
       );
-
-      if (isAuthorized) {
-        logSuccess('User Authorized');
-      } else {
-        logError('Not Authorized');
-      }
+      isAuthorized ? logSuccess('User Authorized') : logError('Not Authorized');
     } catch (error) {
       logError(error);
     }

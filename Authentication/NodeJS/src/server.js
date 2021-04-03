@@ -17,32 +17,6 @@ app.register(fastifyStatic, {
 
 app.register(Routes);
 
-// app.post('/api/register', {}, async (request, reply) => {
-//   try {
-//     const userId = await registerUser(
-//       request.body.email,
-//       request.body.password
-//     );
-
-//     logSuccess('Registered');
-//   } catch (error) {
-//     logError(error);
-//   }
-// });
-
-// app.post('/api/authorize', {}, async (request, reply) => {
-//   try {
-//     const userId = await registerUser(
-//       request.body.email,
-//       request.body.password
-//     );
-
-//     logSuccess('Registered');
-//   } catch (error) {
-//     logError(error);
-//   }
-// });
-
 export const startApp = async () => {
   try {
     await app.listen(process.env.PORT);
