@@ -21,6 +21,16 @@ const routes = async (server) => {
         request.body.password
       );
       isAuthorized ? logSuccess('User Authorized') : logError('Not Authorized');
+
+      // Generate auth tokens
+      // set cookies
+      // reply
+      //   .setCookie('testCookie', 'value test', {
+      //     path: '/',
+      //     domain: '127.0.0.1',
+      //     httpOnly: true,
+      //   })
+      //   .send({ data: 'testing' });
     } catch (error) {
       logError(error);
     }
