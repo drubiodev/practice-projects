@@ -1,6 +1,7 @@
 import { logError, logSuccess } from '../log/index.js';
 import { registerUser } from '../accounts/register.js';
 import { authorizeUser } from '../accounts/authorize.js';
+import { logUserIn } from '../accounts/logUserIn.js';
 const routes = async (server) => {
   server.post('/api/register', {}, async (request, reply) => {
     try {
@@ -16,21 +17,22 @@ const routes = async (server) => {
 
   server.post('/api/authorize', {}, async (request, reply) => {
     try {
-      const isAuthorized = await authorizeUser(
+      const { isAuthorized, userId } = await authorizeUser(
         request.body.email,
         request.body.password
       );
       isAuthorized ? logSuccess('User Authorized') : logError('Not Authorized');
 
-      // Generate auth tokens
-      // set cookies
-      // reply
-      //   .setCookie('testCookie', 'value test', {
-      //     path: '/',
-      //     domain: '127.0.0.1',
-      //     httpOnly: true,
-      //   })
-      //   .send({ data: 'testing' });
+      if (isAuthorized) {
+        await logUserIn(userId, request, reply);
+        reply.send({
+          data: 'Authorized',
+        });
+      }
+
+      reply.code(403).send({
+        data: 'Not Authorized',
+      });
     } catch (error) {
       logError(error);
     }
