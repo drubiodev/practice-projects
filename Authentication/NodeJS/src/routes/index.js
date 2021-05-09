@@ -1,5 +1,6 @@
-import { logError, logSuccess } from '../log/index.js';
+import { logError, logInfo, logSuccess } from '../log/index.js';
 import { registerUser } from '../accounts/register.js';
+import { getUserFromCookies } from '../accounts/user.js';
 import { authorizeUser } from '../accounts/authorize.js';
 import { logUserIn } from '../accounts/logUserIn.js';
 const routes = async (server) => {
@@ -33,6 +34,25 @@ const routes = async (server) => {
       reply.code(403).send({
         data: 'Not Authorized',
       });
+    } catch (error) {
+      logError(error);
+    }
+  });
+
+  server.get('/test', {}, async (request, reply) => {
+    try {
+      // verify user login
+      const user = await getUserFromCookies(request);
+      // return user email, if exist else return unauthorized
+      if (user?._id) {
+        reply.send({
+          data: user,
+        });
+      } else {
+        reply.send({
+          data: 'Failed',
+        });
+      }
     } catch (error) {
       logError(error);
     }
