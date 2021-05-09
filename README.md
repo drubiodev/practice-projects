@@ -1,13 +1,11 @@
 # Practice Projects
 
-## FreeCodeCamp
-
-### API Project: Request Header Parser Microservice
+### API Project: Request Header Parser Microservice *(FreeCodeCamp)*
 - [x] C-Sharp
 - [x] NodeJS
-- [ ] Rust (Still Learning)
+- [ ] Rust *(Still Learning)*
 
-### API Project: URL Shortener Microservice
+### API Project: URL Shortener Microservice *(FreeCodeCamp)*
 - [x] C-Sharp
 - [ ] NodeJS
 
