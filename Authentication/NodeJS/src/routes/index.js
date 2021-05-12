@@ -42,7 +42,7 @@ const routes = async (server) => {
   server.get('/test', {}, async (request, reply) => {
     try {
       // verify user login
-      const user = await getUserFromCookies(request);
+      const user = await getUserFromCookies(request, reply);
       // return user email, if exist else return unauthorized
       if (user?._id) {
         reply.send({
