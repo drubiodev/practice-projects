@@ -3,6 +3,8 @@ import { registerUser } from '../accounts/register.js';
 import { getUserFromCookies } from '../accounts/user.js';
 import { authorizeUser } from '../accounts/authorize.js';
 import { logUserIn } from '../accounts/logUserIn.js';
+import { logUserOut } from '../accounts/logUserOut.js';
+
 const routes = async (server) => {
   server.post('/api/register', {}, async (request, reply) => {
     try {
@@ -33,6 +35,17 @@ const routes = async (server) => {
 
       reply.code(403).send({
         data: 'Not Authorized',
+      });
+    } catch (error) {
+      logError(error);
+    }
+  });
+
+  server.post('/api/logout', {}, async (request, reply) => {
+    try {
+      await logUserOut(request, reply);
+      reply.send({
+        data: 'User Logged Out',
       });
     } catch (error) {
       logError(error);
