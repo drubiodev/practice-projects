@@ -3,7 +3,7 @@
 ### API Project: Request Header Parser Microservice *(FreeCodeCamp)*
 - [x] C-Sharp
 - [x] NodeJS
-- [ ] Rust *(Still Learning)*
+- [ ] Rust _(Still Learning)_
 
 ### API Project: URL Shortener Microservice *(FreeCodeCamp)*
 - [x] C-Sharp
@@ -13,4 +13,6 @@
 - [ ] Rust
 
 ### Authentication
-- [ ] NodeJS
+- [ ] NodeJS _(basics completed, want to add 2FA and email verification)_
+
+### Game Dev
