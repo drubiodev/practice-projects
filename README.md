@@ -14,5 +14,3 @@
 
 ### Authentication
 - [ ] NodeJS _(basics completed, want to add 2FA and email verification)_
-
-### Game Dev
