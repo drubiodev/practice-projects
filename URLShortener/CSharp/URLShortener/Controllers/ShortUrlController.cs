@@ -31,13 +31,13 @@ namespace URLShortener.Controllers
                 return BadRequest("Not a valid URL");
             }
             var id = GenerateShortUrl();
-            var shortUrlDetails = new ShortUrlDetail { Id = id, OriginalUrl = request.Url, ShortUrl = $"https://localhost:5001/api/ShortUrl/{id}" };
+            var shortUrlDetails = new ShortUrlDetail { Id = id, OriginalUrl = request.Url, ShortUrl = $"https://localhost:5001/{id}" };
             _DB.Add(shortUrlDetails);
 
             return Ok(shortUrlDetails);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("/{id}")]
         public ActionResult GetShortUrl(string id)
         {
             var url = _DB.Where(w => w.Id == id).First().OriginalUrl;
