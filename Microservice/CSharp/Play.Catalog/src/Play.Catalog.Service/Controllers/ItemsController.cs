@@ -24,9 +24,15 @@ namespace Play.Catalog.Service.Controllers
         }
 
         [HttpGet("{id}")]
-        public ItemDto GetById(Guid id)
+        public ActionResult<ItemDto> GetById(Guid id)
         {
-            return items.Where(item => item.id == id).SingleOrDefault();
+            var item = items.Where(item => item.id == id).SingleOrDefault();
+
+            if (item == null)
+            {
+                return NotFound(new { message = "Item Doesn't Exist" });
+            }
+            return item;
         }
 
         [HttpPost]
@@ -42,6 +48,12 @@ namespace Play.Catalog.Service.Controllers
         public IActionResult Put(Guid id, UpdateItemDto updateItemDto)
         {
             var existingItem = items.Where(items => items.id == id).SingleOrDefault();
+
+            if (existingItem == null)
+            {
+                return NotFound(new { message = "Item Doesn't Exist" });
+            }
+
             var updatedItem = existingItem with
             {
                 Name = updateItemDto.Name,
@@ -60,6 +72,11 @@ namespace Play.Catalog.Service.Controllers
         public IActionResult Delete(Guid id)
         {
             var index = items.FindLastIndex(existingItem => existingItem.id == id);
+
+            if (index < 0)
+            {
+                return NotFound(new { message = "Item Doesn't Exist" });
+            }
             items.RemoveAt(index);
 
             return NoContent();
