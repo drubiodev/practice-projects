@@ -17,4 +17,7 @@
 
 
 ### Microservice Project: Play Service
-- [ ] C-Sharp
+- [x] C-Sharp
+
+### Databases
+- [ ] SQL
