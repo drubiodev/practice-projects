@@ -22,9 +22,9 @@ VALUES
 INSERT INTO dbo.Locations
     (StreetAddress,City,[State],Zipcode,CustomerId)
 VALUES
-    ('123 West St.', 'Scranton', 'PA', '18512', 2),
-    ('101 Main Ave.', 'Washington', 'DC', '10042', 3),
-    ('19 W Holly St.', 'DuBois', 'TX', '66598', 2)
+    ('123 West St', 'Scranton', 'PA', '18512', 2),
+    ('101 Main Ave', 'Washington', 'DC', '10042', 3),
+    ('19 W Holly St', 'DuBois', 'TX', '66598', 2)
 
 INSERT INTO dbo.WorkDone
     (EmployeeId,JobId,LocationId,HoursWorked,[Description],DatePerformed)
