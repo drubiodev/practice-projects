@@ -23,3 +23,23 @@ INNER JOIN dbo.Jobs J ON J.Id = W.JobID
 INNER JOIN dbo.Locations L ON L.Id = W.LocationID
 INNER JOIN dbo.Customers C ON C.Id = L.CustomerId
 ```
+
+## Display Total Hours Worked By Company
+```sql
+SELECT
+	  --E.FirstName
+	 SUM(W.HoursWorked) AS 'Total Work'
+	, C.CompanyName
+	, MIN(W.HoursWorked) AS Minimum
+	, MAX(W.HoursWorked) AS Maximum
+	, AVG(W.HoursWorked) AS Average
+	, COUNT(1) AS 'Number of Entries'
+FROM dbo.WorkDone W
+INNER JOIN dbo.Jobs J ON J.Id = W.JobID
+INNER JOIN dbo.Customers C ON C.Id = J.CustomerId
+INNER JOIN dbo.Employees E on E.Id = W.EmployeeId
+--WHERE W.Id != 1
+GROUP BY C.CompanyName
+--HAVING SUM(W.HoursWorked) > 5
+ORDER BY C.CompanyName
+```
