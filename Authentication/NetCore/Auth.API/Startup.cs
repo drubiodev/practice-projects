@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Auth.Library.BLL;
+using Auth.Library.BLL.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +34,8 @@ namespace Auth.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Auth.API", Version = "v1" });
             });
+
+            services.AddTransient<IRegisterBLL, RegisterBLL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
