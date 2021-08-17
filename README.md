@@ -1,12 +1,12 @@
 # Practice Projects
 
 ### API Project: Request Header Parser Microservice *(FreeCodeCamp)*
-- [x] C-Sharp
+- [x] .NET Core
 - [x] NodeJS
 - [ ] Rust _(Still Learning)_
 
 ### API Project: URL Shortener Microservice *(FreeCodeCamp)*
-- [x] C-Sharp
+- [x] .NET Core
 - [ ] NodeJS
 
 ### Web Project: Catdex 
@@ -14,10 +14,11 @@
 
 ### Authentication
 - [ ] NodeJS _(basics completed, want to add 2FA and email verification)_
+- [ ] .NET Core
 
 
 ### Microservice Project: Play Service
-- [x] C-Sharp
+- [x] .NET Core
 
 ### Databases
 - [ ] SQL
