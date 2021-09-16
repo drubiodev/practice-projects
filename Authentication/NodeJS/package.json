@@ -18,5 +18,8 @@
     "fastify-static": "^4.0.1",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }
